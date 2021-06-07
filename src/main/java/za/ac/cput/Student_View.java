@@ -6,8 +6,6 @@ import java.awt.*;
 import java.sql.*;
 
 
-
-
 public class Student_View extends JFrame {
     private static Connection connect = null;
     private static  Statement statement = null;
@@ -16,10 +14,13 @@ public class Student_View extends JFrame {
     private static String user = "root";
     private static String pass = "";
 
+
+
     DefaultTableModel model = new DefaultTableModel();
     JTable jtable = new JTable(model);
     JPanel panel = new JPanel();
     Container co = this.getContentPane();
+    String n = ""; String e = "";
 
     public Student_View() {
         co.setLayout(new BorderLayout());
@@ -28,13 +29,20 @@ public class Student_View extends JFrame {
         model.addColumn("lastname");
         model.addColumn("course_name");
 
+      model.addRow(new Object[]{8 ,"victor","makondo","IT"});
+        model.addRow(new Object[]{9 ,"naledi","pandor","bio"});
+
         try {
 
            Class.forName("com.mysql.cj.jdbc.Driver");
            connect = DriverManager.getConnection(url,user, pass);
            //PreparedStatement ps = con.prepareStatement("select * from student_information");
            statement = connect.createStatement();
-             resultSet = statement.executeQuery("select* from adult_table");
+
+           String sql = "select * from adult_table";
+             resultSet = statement.executeQuery(sql);
+
+
 
              while(resultSet.next()){ model.addRow(new Object[]{resultSet.getInt(1),resultSet.getString(2),
                        resultSet.getString(3), resultSet.getString(4)});
@@ -52,7 +60,6 @@ public class Student_View extends JFrame {
 
          JFrame fr = new Student_View();
         fr.setTitle("Student Database Example");
-        //fr.setSize(700,600);//
         fr.setLocationRelativeTo(null);
         fr.setLayout(new BorderLayout());
         fr.setVisible(true);
