@@ -1,0 +1,5 @@
+#the follwoing files will be ignored
+
+/.idea/
+*.iml
+target/
